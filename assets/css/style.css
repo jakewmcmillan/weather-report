@@ -1,0 +1,84 @@
+:root {
+    --border-radius: 0.3rem;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+h1 {
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.25;
+}
+
+h2 {
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.25; 
+}
+
+h3 {
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.25;
+}
+
+h4 {
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.25;
+}
+
+h5 {
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.25;
+}
+
+h6 {
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.25;
+}
+
+main {
+    margin: 20px auto;
+    width: 94%;
+}
+
+.btn {
+    font: 1.3rem;
+    text-decoration: none;
+    padding: 6px 5px;
+    width: 100%;
+    display: block;
+    margin: 5px 0;
+    border-radius: var(--border-radius);
+    border: none;
+    outline: none;
+    transform: translate(-1px, -1px);
+    color: white;
+    background-color: lightskyblue;
+}
+
+.btn:hover {
+    color: black;
+    background-color: lightblue;
+    cursor: pointer;
+}
+
+.banner {
+    padding: 1% 1%;
+    text-align: center;
+    color: white;
+    background-image: linear-gradient(to right, lightskyblue , royalblue);
+}
