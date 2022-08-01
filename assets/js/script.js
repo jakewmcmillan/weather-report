@@ -4,88 +4,106 @@ var cityInputEl = document.querySelector('#city');
 var reposContainerEl = document.querySelector('#repos-container');
 var repoSearchTerm = document.querySelector('#repo-search-term');
 
-var formSubmitHandler = function (event) {
+// var formSubmitHandler = function (event) {
+//     event.preventDefault();
+
+//     var cityName = cityInputEl.value.trim();
+
+//     if (cityName) {
+//         getCityRepos(cityName);
+
+//         reposContainerEl.textContent = '';
+//         cityInputEl.value = '';
+//     } else {
+//         alert('Please enter a City name');
+//     }
+// };
+var searchEl = document.querySelector('.btn');
+
+var getCityRepos = function (event) {
     event.preventDefault();
-
-    var cityName = cityInputEl.value.trim();
-
-    if (cityName) {
-        getCityRepos(cityName);
-
-        reposContainerEl.textContent = '';
-        cityInputEl.value = '';
-    } else {
-        alert('Please enter a City name');
-    }
-};
-
-var buttonClickHandler = function (event) {
-    var language = event.target.getAttribute('data-language');
-
-    if (language){
-        getFeaturedRepos(language);
-
-        reposContainerEl.textContent = '';
-    }
-};
-
-var getCityRepos = function (city) {
-    var apiUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + city + '&lon=' + city + '&appid=83fbcfea79bf43f1175191821f296c01';
+    var city = document.querySelector('#city').value;
+    console.log(city);
+    
+    var apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&appid=83fbcfea79bf43f1175191821f296c01';
 
     fetch(apiUrl)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
-                    displayRepos(data.items, language);
-                });
-            } else {
-            alert('Error: '+ response.statusText);
-        }
+    .then(function (response) {
+        return response.json()
+})
+    .then(function (data) {
+        console.log(data);
+        var latitude = data[0].lat;
+        var longitude = data[0].lon;
+
+        console.log(latitude, longitude);
+        fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&exclude=hourly&appid=83fbcfea79bf43f1175191821f296c01')
+    .then(function (response) {
+        return response.json()
+})
+    .then(function (data) {
+        console.log(data, 'second fetch');
+        document.querySelector('#city-name').textContent = data.timezone
+    })    
+
     })
-    .catch(function (error) {
-        alert('Unable to retrieve weather');
-    });
-};
+}
 
-var getFeaturedRepos = function (language) {
-    var apiUrl = '' + city;
+searchEl.addEventListener('click', getCityRepos);
+    // fetch(apiUrl)
+    //     .then(function (response) {
+    //         if (response.ok) {
+    //             response.json().then(function (data) {
+    //                 displayRepos(data.items, language);
+    //             });
+    //         } else {
+    //         alert('Error: '+ response.statusText);
+    //     }
+    // })
+    // .catch(function (error) {
+    //     alert('Unable to retrieve weather');
+    // });
+    // };
 
-    fetch(apiUrl).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (data) {
-                displayRepos(data.items, city);
-            });
-        } else {
-            alert('Error: ' + response.statusText);
-        }
-    });
-};
+// var getFeaturedRepos = function (language) {
+//     var apiUrl = '' + city;
 
-var displayRepos = function (repos, searchTerm) {
-    if (repos.length === 0) {
-        reposContainerEl.textContent = 'No repositories found.';
-        return;
-    }
+//     fetch(apiUrl).then(function (response) {
+//         if (response.ok) {
+//             response.json().then(function (data) {
+//                 displayRepos(data.items, city);
+//             });
+//         } else {
+//             alert('Error: ' + response.statusText);
+//         }
+//     });
+// };
 
-    repoSearchTerm.textContent = searchTerm;
+// var displayRepos = function (repos, searchTerm) {
+//     if (repos.length === 0) {
+//         reposContainerEl.textContent = 'No repositories found.';
+//         return;
+//     }
 
-    for (var i = 0; i < repos.length; i++) {
-        var repoName = repos[i].coord.lon + repos.coord.lat;
+//     repoSearchTerm.textContent = searchTerm;
 
-        var repoEl = document.createElement('div');
-        repoEl.classList = 'list-item flex-row justify-space-between align-center';
+//     for (var i = 0; i < repos.length; i++) {
+//         var repoName = repos[i].coord.lon + repos.coord.lat;
 
-        var titleEl = document.createElement('span');
-        titleEl.textContent = repoName;
+//         var repoEl = document.createElement('div');
+//         repoEl.classList = 'list-item flex-row justify-space-between align-center';
 
-        repoEl.appendChild(titleEl);
+//         var titleEl = document.createElement('span');
+//         titleEl.textContent = repoName;
 
-        var statusEl = document.createElement('span');
-        statusEl.classList = 'flex-row align-center';
+//         repoEl.appendChild(titleEl);
 
-        repoEl.appendChild(statusEl);
+//         var statusEl = document.createElement('span');
+//         statusEl.classList = 'flex-row align-center';
 
-        repoContainerEl.appendChild(repoEl);
-    }
-};
+//         repoEl.appendChild(statusEl);
+
+//         repoContainerEl.appendChild(repoEl);
+//     }
+// };
 
