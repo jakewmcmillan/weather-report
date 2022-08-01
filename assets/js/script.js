@@ -43,8 +43,12 @@ var getCityRepos = function (event) {
 })
     .then(function (data) {
         console.log(data, 'second fetch');
-        document.querySelector('#city-name').textContent = data.timezone
-    })    
+        document.querySelector('#city-name').textContent = 'City: ' + data.timezone
+        document.querySelector('#city-temperature').textContent = 'Temperature: ' + data.current.temp
+        document.querySelector('#city-humidity').textContent = 'Humidity: ' + data.current.humidity
+        document.querySelector('#city-wind-speed').textContent = 'Wind Speed: ' + data.current.wind_speed
+        document.querySelector('#city-uv-index').textContent = 'UV Index: ' + data.current.uvi
+    })   
 
     })
 }
