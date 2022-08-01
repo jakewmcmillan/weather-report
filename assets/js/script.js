@@ -4,20 +4,6 @@ var cityInputEl = document.querySelector('#city');
 var reposContainerEl = document.querySelector('#repos-container');
 var repoSearchTerm = document.querySelector('#repo-search-term');
 
-// var formSubmitHandler = function (event) {
-//     event.preventDefault();
-
-//     var cityName = cityInputEl.value.trim();
-
-//     if (cityName) {
-//         getCityRepos(cityName);
-
-//         reposContainerEl.textContent = '';
-//         cityInputEl.value = '';
-//     } else {
-//         alert('Please enter a City name');
-//     }
-// };
 var searchEl = document.querySelector('.btn');
 
 var getCityRepos = function (event) {
@@ -48,6 +34,7 @@ var getCityRepos = function (event) {
         document.querySelector('#city-humidity').textContent = 'Humidity: ' + data.current.humidity
         document.querySelector('#city-wind-speed').textContent = 'Wind Speed: ' + data.current.wind_speed
         document.querySelector('#city-uv-index').textContent = 'UV Index: ' + data.current.uvi
+        document.querySelector('#city-uv-index').style.color = 'red'
     })   
 
     })
